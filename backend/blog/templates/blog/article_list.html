@@ -1,3 +1,6 @@
+{% extends 'blog/base.html' %}
+
+{% block main %}
 {% for article in object_list %}
     <article>
         <h2>{{article.title}}</h2>
@@ -9,3 +12,5 @@
 {% empty %}
 
 {% endfor %}
+
+{% endblock %}
