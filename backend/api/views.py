@@ -1,14 +1,49 @@
 from django.shortcuts import render
-from rest_framework.generics import ListAPIView, ListCreateAPIView
-from .serializers import ArticleSerializer
+from rest_framework.generics import ListAPIView, ListCreateAPIView, RetrieveAPIView, RetrieveUpdateDestroyAPIView
+from .serializers import ArticleSerializer, UserSerializer
 from blog.models import Article
+from django.contrib.auth.models import User
 
 
 # Create your views here.
 
-# first view to make info serialize
+# a view to make all objects info serialize
+# get objects
+# create new object
 class ArticleList(ListCreateAPIView):
     # get all articles
     queryset = Article.objects.all()
     # determine serializer class
     serializer_class = ArticleSerializer
+
+
+# a view to make an object info serialize
+# retrieve object
+# update object
+# destroy object
+class ArticleDetail(RetrieveUpdateDestroyAPIView):
+    # get all articles
+    queryset = Article.objects.all()
+    # determine serializer class
+    serializer_class = ArticleSerializer
+
+
+# a view to make all objects info serialize
+# get objects
+# create new object
+class UserList(ListCreateAPIView):
+    # get all articles
+    queryset = User.objects.all()
+    # determine serializer class
+    serializer_class = UserSerializer
+
+
+# a view to make an object info serialize
+# retrieve object
+# update object
+# destroy object
+class UserDetail(RetrieveUpdateDestroyAPIView):
+    # get all articles
+    queryset = User.objects.all()
+    # determine serializer class
+    serializer_class = UserSerializer
