@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from rest_framework.generics import ListAPIView, ListCreateAPIView, RetrieveAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.permissions import IsAdminUser
 from .serializers import ArticleSerializer, UserSerializer
 from blog.models import Article
 from django.contrib.auth.models import User
@@ -36,6 +37,8 @@ class UserList(ListCreateAPIView):
     queryset = User.objects.all()
     # determine serializer class
     serializer_class = UserSerializer
+    # add a new permission for this view
+    permission_classes = (IsAdminUser,)
 
 
 # a view to make an object info serialize
@@ -47,3 +50,5 @@ class UserDetail(RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()
     # determine serializer class
     serializer_class = UserSerializer
+    # add a new permission for this view
+    permission_classes = (IsAdminUser,)
