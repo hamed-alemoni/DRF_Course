@@ -128,7 +128,7 @@ REST_FRAMEWORK = {
     ],
     # add authentication
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.BasicAuthentication',
+        # 'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
     ]
 }
