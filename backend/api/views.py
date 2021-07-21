@@ -17,6 +17,8 @@ class ArticleList(ListCreateAPIView):
     queryset = Article.objects.all()
     # determine serializer class
     serializer_class = ArticleSerializer
+    # add a new permission for this view
+    permission_classes = (IsStaffOrReadOnly, IsAuthorOrReadOnly)
 
 
 # a view to make an object info serialize
