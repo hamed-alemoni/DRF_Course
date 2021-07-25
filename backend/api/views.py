@@ -5,8 +5,8 @@ from .serializers import ArticleSerializer, UserSerializer
 from blog.models import Article
 from .permissions import IsSuperuserOrAuthorReadOnly, IsStaffOrReadOnly, IsAuthorOrReadOnly
 from django.contrib.auth.models import User
-from rest_framework.views import APIView
-from rest_framework.response import Response
+# from rest_framework.views import APIView
+# from rest_framework.response import Response
 
 
 # Create your views here.
@@ -62,11 +62,11 @@ class UserDetail(RetrieveUpdateDestroyAPIView):
 
 
 # To revoke tokens
-class RevokeToken(APIView):
-    # add a new permission for this view
-    permission_classes = (IsAuthenticated,)
-
-    # delete the token
-    def delete(self, request):
-        request.auth.delete()
-        return Response(status=204)
+# class RevokeToken(APIView):
+#     # add a new permission for this view
+#     permission_classes = (IsAuthenticated,)
+#
+#     # delete the token
+#     def delete(self, request):
+#         request.auth.delete()
+#         return Response(status=204)
