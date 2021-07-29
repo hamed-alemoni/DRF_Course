@@ -36,15 +36,15 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    # 'dj_rest_auth',
     'rest_framework.authtoken',
     'blog.apps.BlogConfig',
     'api.apps.ApiConfig',
     'django.contrib.sites',
-    # 'allauth',
-    # 'allauth.account',
-    # 'allauth.socialaccount',
-    # 'dj_rest_auth.registration',
+    'dj_rest_auth',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'dj_rest_auth.registration',
 
 ]
 
@@ -139,10 +139,16 @@ REST_FRAMEWORK = {
         # 'rest_framework.authentication.BasicAuthentication',
         # 'rest_framework.authentication.SessionAuthentication',
         # 'rest_framework.authentication.TokenAuthentication',
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        # 'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
     ]
 }
 
 SITE_ID = 1
+
+REST_USE_JWT = True
+
+JWT_AUTH_COOKIE = 'access'
+JWT_AUTH_REFRESH_COOKIE = 'refresh'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
