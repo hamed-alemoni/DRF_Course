@@ -1,62 +1,83 @@
-from django.shortcuts import render
-from rest_framework.generics import ListAPIView, ListCreateAPIView, RetrieveAPIView, RetrieveUpdateDestroyAPIView
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.viewsets import ModelViewSet
 from .serializers import ArticleSerializer, UserSerializer
 from blog.models import Article
 from .permissions import IsSuperuserOrAuthorReadOnly, IsStaffOrReadOnly, IsAuthorOrReadOnly
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 
 
 # Create your views here.
+######## second way instead of viewsets(Article) ######
 
 # a view to make all objects info serialize
 # get objects
 # create new object
-class ArticleList(ListCreateAPIView):
+# class ArticleList(ListCreateAPIView):
+#     # get all articles
+#     queryset = Article.objects.all()
+#     # determine serializer class
+#     serializer_class = ArticleSerializer
+#     # add a new permission for this view
+#     permission_classes = (IsStaffOrReadOnly, IsAuthorOrReadOnly)
+
+# a view to make an object info serialize
+# retrieve object
+# update object
+# destroy object
+# class ArticleDetail(RetrieveUpdateDestroyAPIView):
+#     # get all articles
+#     queryset = Article.objects.all()
+#     # determine serializer class
+#     serializer_class = ArticleSerializer
+#     # add a new permission for this view
+#     permission_classes = (IsStaffOrReadOnly, IsAuthorOrReadOnly)
+
+
+class ArticleViewSet(ModelViewSet):
     # get all articles
     queryset = Article.objects.all()
     # determine serializer class
     serializer_class = ArticleSerializer
+
     # add a new permission for this view
-    permission_classes = (IsStaffOrReadOnly, IsAuthorOrReadOnly)
+    def get_permissions(self):
+        if self.action in ['list', 'create']:
+            permission_classes = (IsStaffOrReadOnly,)
+        else:
+            permission_classes = (IsStaffOrReadOnly, IsAuthorOrReadOnly)
+        return [permission() for permission in permission_classes]
+
+        ######## second way instead of viewsets(User) ######
+
+
+# a view to make all objects info serialize
+# get objects
+# create new object
+# class UserList(ListCreateAPIView):
+#     # get all articles
+#     queryset = User.objects.all()
+#     # determine serializer class
+#     serializer_class = UserSerializer
+#     # add a new permission for this view
+#     permission_classes = (IsSuperuserOrAuthorReadOnly,)
 
 
 # a view to make an object info serialize
 # retrieve object
 # update object
 # destroy object
-class ArticleDetail(RetrieveUpdateDestroyAPIView):
-    # get all articles
-    queryset = Article.objects.all()
-    # determine serializer class
-    serializer_class = ArticleSerializer
-    # add a new permission for this view
-    permission_classes = (IsStaffOrReadOnly, IsAuthorOrReadOnly)
+# class UserDetail(RetrieveUpdateDestroyAPIView):
+#     # get all articles
+#     queryset = User.objects.all()
+#     # determine serializer class
+#     serializer_class = UserSerializer
+#     # add a new permission for this view
+#     permission_classes = (IsSuperuserOrAuthorReadOnly,)
 
 
-# a view to make all objects info serialize
-# get objects
-# create new object
-class UserList(ListCreateAPIView):
+class UserViewSet(ModelViewSet):
     # get all articles
-    queryset = User.objects.all()
+    queryset = get_user_model().objects.all()
     # determine serializer class
     serializer_class = UserSerializer
     # add a new permission for this view
     permission_classes = (IsSuperuserOrAuthorReadOnly,)
-
-
-# a view to make an object info serialize
-# retrieve object
-# update object
-# destroy object
-class UserDetail(RetrieveUpdateDestroyAPIView):
-    # get all articles
-    queryset = User.objects.all()
-    # determine serializer class
-    serializer_class = UserSerializer
-    # add a new permission for this view
-    permission_classes = (IsSuperuserOrAuthorReadOnly,)
-
-
-
