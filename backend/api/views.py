@@ -37,6 +37,8 @@ class ArticleViewSet(ModelViewSet):
     queryset = Article.objects.all()
     # determine serializer class
     serializer_class = ArticleSerializer
+    # determine filtering fields
+    filterset_fields = ['status', 'author__username']
 
     # add a new permission for this view
     def get_permissions(self):
