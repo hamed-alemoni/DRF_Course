@@ -3,6 +3,7 @@ certifi==2021.5.30
 charset-normalizer==2.0.3
 dj-rest-auth==2.1.9
 Django==3.2.5
+django-filter==2.4.0
 djangorestframework==3.12.4
 djangorestframework-simplejwt==4.7.2
 ez-setup==0.9
