@@ -39,6 +39,20 @@ class ArticleViewSet(ModelViewSet):
     serializer_class = ArticleSerializer
     # determine filtering fields
     filterset_fields = ['status', 'author__username']
+    # determine ordering fields
+    ordering_fields = ['status', 'publish']
+    # default ordering
+    ordering = ['-publish']
+    # determine search fields
+    search_fields = [
+
+        'title',
+        'content',
+        'author__username',
+        'author__first_name',
+        'author__last_name',
+
+    ]
 
     # add a new permission for this view
     def get_permissions(self):
