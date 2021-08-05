@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from blog.models import Article
 from django.contrib.auth import get_user_model
+from drf_dynamic_fields import DynamicFieldsMixin
 
 
 # create a class to make particular author's data and return it
@@ -11,7 +12,7 @@ class AuthorUsernameField(serializers.RelatedField):
 
 
 # create a serializer for Article module
-class ArticleSerializer(serializers.ModelSerializer):
+class ArticleSerializer(DynamicFieldsMixin, serializers.ModelSerializer):
     # return author's detail
     def get_author(self, obj):
         return {
